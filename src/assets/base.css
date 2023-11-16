@@ -32,8 +32,11 @@ html {
 
 body {
   font-family: 'Montserrat Alternates', sans-serif;
-  background: var(--color-page-bg);
   display: grid;
-  place-items: center;
   height: 100vh;
+
+  @media screen and (min-width: 501px) {
+    background: var(--color-page-bg);
+    place-items: center;
+  }
 }

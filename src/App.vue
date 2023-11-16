@@ -4,7 +4,9 @@
       <div>Teplo</div>
       <div>🔥 🧊</div>
     </div>
-    <GameField class="game__field" :class="{isGameOver: store.gameState.isGameOver}" />
+    <div class="game__field">
+      <GameField :class="{isGameOver: store.gameState.isGameOver}" />
+    </div>
     <div class="game__footer">
       <Indicator label="score" :value="store.gameState.score" />
       <div v-if="store.gameState.isGameOver" @click="store.resetGame()" class="game-button">- replay -</div>
@@ -15,7 +17,6 @@
 
 <script setup lang="ts">
 import Indicator from './components/Indicator.vue'
-import GameState from './components/GameState.vue'
 import GameField from './components/GameField.vue'
 import { useGameStore } from './stores/index'
 const store = useGameStore()
@@ -25,25 +26,35 @@ store.resetGame()
 
 <style lang="scss" scoped>
 .game {
-  border: 1px solid var(--color-content);
-  padding: 3.2rem 3.2rem 2.4rem;
-  border-radius: 1.6rem;
-  box-sizing: content-box;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 2rem 3rem;
-}
-
-.game {
-  display: grid;
-  grid-template-rows: 4rem 1fr auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   gap: 2rem;
-  width: 32rem;
+  width: 100vw;
+  height: 100vh;
   font-family: 'Montserrat Alternates', sans-serif;
   font-weight: 800;
   color: var(--color-content);
   background-color: var(--color-game-bg);
+  padding: 3.2rem 3.2rem 2.4rem;
+  box-sizing: border-box;
+
+  @media screen and (min-width: 501px) {
+    display: grid;
+    grid-template-rows: 4rem 1fr auto;
+    flex-direction: unset;
+    justify-content: unset;
+    height: auto;
+    max-width: 46rem;
+    border-radius: 1.6rem;
+    border: 1px solid var(--color-content);
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 2rem 3rem;
+  }
 
   &__field {
     aspect-ratio: 1 / 1;
+    display: grid;
+    place-items: center;
 
     &.isGameOver {
       pointer-events: none;
