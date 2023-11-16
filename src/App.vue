@@ -5,7 +5,7 @@
       <div>🔥 🧊</div>
     </div>
     <div class="game__field">
-      <GameField :class="{isGameOver: store.gameState.isGameOver}" />
+      <GameField />
     </div>
     <div class="game__footer">
       <Indicator label="score" :value="store.gameState.score" />
@@ -55,10 +55,6 @@ store.resetGame()
     aspect-ratio: 1 / 1;
     display: grid;
     place-items: center;
-
-    &.isGameOver {
-      pointer-events: none;
-    }
   }
  
   &__header,

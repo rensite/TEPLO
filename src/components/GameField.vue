@@ -1,10 +1,9 @@
 <template>
-  <table class="field" @click="cellClick">
-    <tr v-for="row, i in store.matrix">
+  <table class="field">
+    <tr v-for="row, x in store.matrix">
       <td
-        v-for="col, k in row"
-        :data-x="i"
-        :data-y="k"
+        v-for="col, y in row"
+        @click="cellClick(x, y)"
       >
         <span>{{ col }}</span>
       </td>
@@ -16,18 +15,8 @@
 import { useGameStore } from '../stores/index'
 const store = useGameStore()
 
-interface InputFileEvent extends Event {
-    target: HTMLInputElement;
-}
-
-const cellClick = (event: InputFileEvent) => {
-  const { target } = event
-
-  if (target.tagName !== 'TD') return
-
-  const x = Number(target?.getAttribute('data-x'))
-  const y = Number(target?.getAttribute('data-y'))
-
+const cellClick = (x:number, y:number) => {
+  console.log(x,y)
   if (!store.matrix[x][y].length) {
     const distance = distanceInMatrix(x,y)
     store.revealCellValue(x, y, distance)
